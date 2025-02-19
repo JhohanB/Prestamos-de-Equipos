@@ -86,21 +86,30 @@ function imprimirEquipos(){
 botonIntructores.addEventListener('click', ()=>{
     const inputID = document.getElementById('inputIdInstructor');
     let identificacion = inputID.value;
+    const inputNombre = document.getElementById('inputNombre');
+    let nombre = inputNombre.value;
     let verificar = identificacionInstructores.indexOf(identificacion);
-    
-    if (verificar == -1){
-        const inputNombre = document.getElementById('inputNombre');
-        let nombre = inputNombre.value;
+
+    if(identificacion == "" && nombre == "") {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se han ingresado datos",
+        });
+        return;
+    } else {
+        if (verificar == -1){
         identificacionInstructores.push(identificacion);
         nombresInstructores.push(nombre);
 
         guardarDatos();
-    }else{
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "El instructor ya está registrado",
-        });
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "El instructor ya está registrado",
+            });
+        }
     }
 
     inputID.value = '';
